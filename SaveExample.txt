@@ -1,0 +1,12 @@
+#Nickname
+Kingreen
+#HP
+100
+#Gold
+120
+#Items
+HealPotion, DamageReductionPotion, Shield, SharpStick
+#Level
+2
+#XP
+46
