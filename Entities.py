@@ -1,20 +1,23 @@
 import random
+import Items
+
+#PLAYER CLASS
 
 class Player():
-
-	#Attributes
-
-	is_alive = True
-	hp = 100
-	gold = 0
-	inventory = list()
-	level = 0
-	xp = 0
 
 	#Constructors
 
 	def __init__(self, nickname):
-		self.nickname = nickname;
+		self.nickname = nickname
+		self.is_alive = True
+		self.hp = 100 
+		self.ap = 0 
+		self.gold = 0
+		self.gold_earned = 0
+		self.inventory = [[], [], []] #weapons, armor, consumables
+		self.level = 0
+		self.xp = 0
+		self.day = 1
 
 	#Setter & Getters
 
@@ -24,11 +27,23 @@ class Player():
 	def get_hp(self):
 		return self.hp
 
+	def set_ap(self, ap):
+		self.ap = ap
+
+	def get_ap(self):
+		return self.ap	
+
 	def set_gold(self, gold):
 		self.gold = gold
 
 	def get_gold(self):
 		return self.gold
+
+	def set_gold_earned(self, gold_earned):
+		self.gold_earned = gold_earned
+
+	def get_gold_earned(self):
+		return self.gold_earned
 
 	def set_level(self, level):
 		self.level = level
@@ -42,55 +57,72 @@ class Player():
 	def get_xp(self):
 		return self.xp
 
-	def set_level(self, level):
-		self.level = level
-
-	def get_level(self):
-		return self.level
-
 	def set_nickname(self, nickname):
 		self.nickname = nickname
 
 	def get_nickname(self):
 		return self.nickname
 
+	def set_day(self, day):
+		self.day = day
+
+	def get_day(self):
+		return self.day
+
 	#Methods
 
-	def grab_item(self, item):
-		inventory.append(item)
+	def add_to_inventory(self, item):
+		if isinstance(item, Items.Weapon):
+			self.inventory[0].append(item)
+		elif isinstance(item, Items.Armor):
+			self.inventory[1].append(item)
+		elif isinstance(item, Items.Consumable):
+			self.inventory[2].append(item)
 
-	def level_up(self):
-		print(f"You have been prooted! Your level now is {level}")
+	def remove_from_inventory(self, item):
+		if item in self.inventory:
+			self.inventory.remove(item)
 
 	def die(self):
 		self.is_alive = False
 
+	def resurrect(self):
+		self.is_alive = True
+
 	def update(self):
+		#Armor Check
+		if len(self.inventory[2]) != 0:
+			self.ap = 0
+			for slot in self.inventory[2]:
+				self.ap += slot.ap
+
 		#Level Check
 		if self.xp > 99:
 			self.xp = self.xp - 100
 			self.level_up()
+
 		#HP Check
 		if self.hp < 1:
 			self.die()
 
-	def level_up():
-		print(f"œ You've been promoted! Your level now is {level}.")
+	def level_up(self):
+		self.level += 1
+		print(f"\nœ You've been promoted! Your level now is {self.level}.\n")
 		print("1. +60 HP")
-		print("2. Get Random Item")
-		print("3. Get Random Weapon")
+		print("2. Get Random Item [not working]")
+		print("3. Get Random Weapon [not working]")
 		decision = int(input("Make your Choice: "))
 		if decision == 1:
-			self.xp += 60
+			self.hp += 60
 		elif decision == 2:
-			self.get_random_item()
+			pass
 		else:
-			self.get_random_weapon()
+			pass
 
-	def get_random_item():
+	def get_random_item(self):
 		pass
 
-	def get_radnom_weapon():
+	def get_radnom_weapon(self):
 		pass
 
 
@@ -99,17 +131,17 @@ class Enemy():
 	def __init__(self, level):
 		if level == 1:
 			self.level = 1
-			self.hp = 20
+			self.hp = 10
 			self.gold_on_drop = int(random.random() * 10)
 			self.xp_on_kill = int(random.random() * 12 + 6)
 		elif level == 2:
 			self.level = 2
-			self.hp = 30
+			self.hp = 15
 			self.gold_on_drop = int(random.random() * 10 + 10)
 			self.xp_on_kill = int(random.random() * 12 + 12)
 		elif level == 3:
 			self.level = 3
-			self.hp = 40
+			self.hp = 20
 			self.gold_on_drop = int(random.random() * 10 + 20)
 			self.xp_on_kill = int(random.random() * 12 + 18)
 		print(f"There is a Monster [Level {self.level}]")
@@ -136,4 +168,4 @@ class Enemy():
 
 
 if __name__ == "__main__":
-	print("Please, run Game.py")
+	print("Entities.py")

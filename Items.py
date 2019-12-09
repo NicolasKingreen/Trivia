@@ -1,27 +1,67 @@
 import random
 
+class Item():
 
-class Weapon():
+	def __init__(self, name, id, price, size):
+		self.name = name
+		self.id = id
+		self.price = price
+		self.size = size
+
+	def add_to_inventory(self, player):
+		player.add_to_inventory(self)
+
+	def remove_from_inventory(self, player):
+		player.remove_from_inventory(self)
+
+#Weapons
+
+class Weapon(Item):
 	
-	def __init__(self, name, type):
-		self.name = name;
-		if type == 0:
-			self.damage = int(random() * 6)
-			self.ammo = 18
-			self.price = 30 + int(random.random() * 6)
-		elif type == 1:
-			self.damage = int(random.random() * 12 + 6)
-			self.ammo = 12
-			self.price = 46 + int(random.random() * 6)
-		else:
-			self.damage = int(random.random() * 18 + 12)
-			self.ammo = 6
-			self.price = 62 + int(random.random() * 6)
+	def __init__(self, name, id, price, size, damage):
+		super().__init__(name, id, price, size)
+		self.damage = damage
 
+class Sword(Weapon):
 
-class Potion():
+	pass
+
+#Armor
+
+class Armor(Item):
+	
+	def __init__(self, name, id, price, size, ap):
+		super().__init__(name, id, price, size)
+		self.ap = ap
+
+class Helmet(Armor):
+	
+	pass
+
+class Chest(Armor):
+
+	pass
+
+#Consumables
+
+class Consumable(Item):
+
+	def __init__(self, name, id, price, size, amount):
+		super().__init__(name, id, price, size)
+		self.amount = amount
+
+class Potion(Consumable):
+
+	pass
+
+class HealPotion(Potion):
+
+	pass
+
+class DamageReductionPotion(Potion):
+	
 	pass
 
 
 if __name__ == "__main__":
-	print("Please, run Game.py")
+	print("Items.py")

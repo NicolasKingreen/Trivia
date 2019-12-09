@@ -1,0 +1,14 @@
+TODO:
+	1. Quests in each 15 days
+		• to kill _ monsters level [1, 2, 3]
+		• to meet up someone
+		• to defeat a boss (maybe)
+		-Completeng a quest will grant a gold and xp reward
+	2. Shop every 10 days
+	3. Inventory
+		• Weapons
+		• Consumables
+		• Armor
+	4. Save & Load (1 file, not the option)
+	...
+	hub, mp, campaing...
